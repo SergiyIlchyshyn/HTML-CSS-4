@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f6f1" />
+    <title>CSS Lab — HTML &amp; CSS · Урок 4</title>
+    <meta name="description" content="CSS Lab — інтерактивний урок HTML &amp; CSS №4: підключення CSS, колір, фон і шрифт." />
+    <meta property="og:title" content="CSS Lab — HTML &amp; CSS · Урок 4" />
+    <meta property="og:description" content="CSS Lab — інтерактивний урок HTML &amp; CSS №4: підключення CSS, колір, фон і шрифт." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  </head>
+  <body class="light">
+    <div class="viewport">
+      <div class="deck" id="deck">
+        <main class="stage" id="stage" aria-label="Слайди уроку" aria-live="polite"></main>
+        
+        <footer class="bar">
+          <div class="bar-left">
+            <a class="brand" href="#1" aria-label="До першого слайда">
+              <span class="brand-mark" aria-hidden="true">{ }</span>
+              <span>css lab</span>
+              <small>HTML&amp;CSS · урок 4</small>
+            </a>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Змінити тему">
+              <span>☾</span>Темна
+            </button>
+          </div>
+
+          <div class="segments" id="segments" aria-hidden="true"></div>
+
+          <div class="bar-right">
+            <span class="bar-section" id="sectionTitle">Початок</span>
+            <span class="bar-count" id="slideCounter">01 / 29</span>
+            <button class="nav-btn" id="prevBtn" type="button" aria-label="Попередній слайд">←</button>
+            <button class="nav-btn" id="nextBtn" type="button" aria-label="Наступний слайд">→</button>
+          </div>
+        </footer>
+
+        <nav class="hud" id="hud" aria-label="Налаштування презентації">
+          <strong class="hud-title" id="currentTitle">Підключення CSS</strong>
+          <button class="hud-btn" id="outlineBtn" type="button" title="Всі слайди (G)">
+            Слайди <kbd>G</kbd>
+          </button>
+          <button class="hud-btn" id="notesBtn" type="button" title="Нотатки (N)">
+            Нотатки <kbd>N</kbd>
+          </button>
+          <button class="hud-btn" id="themeBtn" type="button" title="Тема (T)">
+            Тема <kbd>T</kbd>
+          </button>
+          <button class="hud-btn" id="fullscreenBtn" type="button" title="Повний екран (F)">
+            Екран <kbd>F</kbd>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Оверлей змісту -->
+    <div class="overlay" id="outlineOverlay" hidden>
+      <div class="overlay-shade" data-close></div>
+      <aside class="side-panel" role="dialog" aria-modal="true" aria-label="Зміст">
+        <div class="side-head">
+          <div>
+            <small>НАВІГАЦІЯ</small>
+            <h2>Всі слайди</h2>
+          </div>
+          <button class="close-btn" data-close type="button" aria-label="Закрити">✕</button>
+        </div>
+        <div class="outline-list" id="outlineList"></div>
+      </aside>
+    </div>
+
+    <!-- Оверлей нотаток викладача -->
+    <div class="overlay" id="notesOverlay" hidden>
+      <div class="overlay-shade" data-close></div>
+      <aside class="side-panel" role="dialog" aria-modal="true" aria-label="Нотатки викладача">
+        <div class="side-head">
+          <div>
+            <small>ТІЛЬКИ ДЛЯ ВИКЛАДАЧА</small>
+            <h2>Підказки до слайда</h2>
+          </div>
+          <button class="close-btn" data-close type="button" aria-label="Закрити">✕</button>
+        </div>
+        <div class="notes-content" id="notesContent"></div>
+        <div class="teacher-shortcuts">
+          <b>Гарячі клавіші</b>
+          <p>← → — слайди · Пробіл / ↓ — крок демо · G — зміст · N — нотатки · T — тема · F — екран · Esc — закрити</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Спливаюче повідомлення -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

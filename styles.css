@@ -1,9 +1,7 @@
-@import "tailwindcss";
-
 /* ═══════════════════════════════════════════════════════════════
-   CSS Lab · HTML & CSS · Урок 4 — дизайн v5
-   Холст 1920×1080 масштабируется под любой экран (как Keynote).
-   Светлая тема по умолчанию (body.light), тёмная — по кнопке.
+   CSS Lab · HTML & CSS · Урок 4 — чистий CSS (без Tailwind)
+   Полотно 1920×1080 масштабується під будь-який розмір екрана.
+   Світла тема за замовчуванням (body.light), темна — за перемикачем.
    ═══════════════════════════════════════════════════════════════ */
 :root {
   --outer: #050608;
@@ -105,7 +103,7 @@ code, pre, kbd {
   font-family: var(--mono);
 }
 
-/* ── холст ── */
+/* ── полотно ── */
 .viewport {
   position: fixed;
   inset: 0;
@@ -171,7 +169,7 @@ body:not(.light) .deck {
   gap: 40px;
 }
 
-/* ── нижняя панель ── */
+/* ── нижня панель навігації ── */
 .bar {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -303,7 +301,7 @@ body:not(.light) .deck {
   color: var(--on-accent);
 }
 
-/* ── HUD: появляется при движении мыши ── */
+/* ── HUD ── */
 .hud {
   position: absolute;
   top: 24px;
@@ -401,7 +399,7 @@ body.light .intro h2 em {
   color: var(--muted);
 }
 
-/* ── общие блоки ── */
+/* ── спільні блоки ── */
 .pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -493,7 +491,7 @@ body.light .intro h2 em {
   color: var(--muted);
 }
 
-/* ── код ── */
+/* ── блок коду ── */
 .code-window {
   flex: 0 1 auto;
   min-height: 0;
@@ -629,7 +627,7 @@ body.light code.ic {
   box-shadow: inset 0 0 0 1px #00000010;
 }
 
-/* ── термин ── */
+/* ── бейдж терміна ── */
 .term {
   display: inline-flex;
   align-items: center;
@@ -658,7 +656,7 @@ body.light .term b {
   color: #101114;
 }
 
-/* ── браузер-предпросмотр ── */
+/* ── браузерний фрейм ── */
 .browser {
   flex: 1;
   min-height: 0;
@@ -709,7 +707,7 @@ body.light .browser {
   pointer-events: none;
 }
 
-/* ── теория ── */
+/* ── теорія ── */
 .theory-pane {
   justify-content: flex-start;
 }
@@ -756,7 +754,7 @@ body.light .concept > span {
   font-size: 19px;
 }
 
-/* ── квиз ── */
+/* ── тести (квізи) ── */
 .quiz-grid {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
@@ -869,7 +867,7 @@ body.light .feedback {
   max-height: 100%;
 }
 
-/* ── шаги демо ── */
+/* ── покрокові демо ── */
 .mem-step {
   flex: none;
   background: var(--surface);
@@ -891,7 +889,7 @@ body.light .mem-step {
   width: fit-content;
 }
 
-/* ── до/после ── */
+/* ── до / після ── */
 .ba-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -983,7 +981,7 @@ body.light .mem-step {
 }
 .verdict.good b { color: var(--good); }
 
-/* ── анатомия правила ── */
+/* ── анатомія правила ── */
 .ana-pair {
   grid-template-columns: 1.05fr 0.95fr;
 }
@@ -1112,7 +1110,7 @@ body.light .ana-row.on {
 .ana-row.on .ana-n { color: var(--accent-ink); }
 .ana-row.on .ana-desc { color: var(--soft); }
 
-/* ── цвет ── */
+/* ── колір ── */
 .color-pair {
   grid-template-columns: 0.85fr 1.15fr;
 }
@@ -1490,7 +1488,7 @@ body.light .dt-inh b {
   color: #1f1f1f;
 }
 
-/* ── отладка ── */
+/* ── блок помилок (налагодження) ── */
 .bugs2 {
   display: grid;
   grid-template-columns: 440px 1fr;
@@ -1590,7 +1588,7 @@ body.light .bug-tab.active {
   width: 100%;
 }
 
-/* ── практика ── */
+/* ── блок практики ── */
 .practice-layout {
   display: grid;
   grid-template-columns: 1.45fr 1fr;
@@ -1747,7 +1745,7 @@ body.light .goal {
   color: var(--on-accent);
 }
 
-/* ── словарь ── */
+/* ── словник ── */
 .gl-grid {
   flex: 1;
   min-height: 0;
@@ -1916,7 +1914,7 @@ body.light .exc-card span {
   padding: 13px 22px;
 }
 
-/* ── обложка ── */
+/* ── обкладинка ── */
 .cover {
   padding: 96px 112px 56px;
 }
@@ -2105,7 +2103,7 @@ body.light .art-input {
   border: 1px solid var(--line-2);
 }
 
-/* ── финал ── */
+/* ── фінальний слайд ── */
 .closing {
   flex: 1;
   display: flex;
@@ -2171,7 +2169,7 @@ body.light .closing-mark {
   color: var(--muted) !important;
 }
 
-/* ── оверлеи ── */
+/* ── оверлеї ── */
 .overlay {
   position: fixed;
   inset: 0;
@@ -2316,7 +2314,7 @@ body.light .closing-mark {
   transform: translate(-50%, 0);
 }
 
-/* ═══ Веб-шрифты и иконки: index.html + style.css слева, результат справа ═══ */
+/* ═══ Веб-шрифти та іконки ═══ */
 .web-grid {
   flex: 1;
   min-height: 0;
@@ -2385,7 +2383,7 @@ body.light .closing-mark {
   grid-template-rows: minmax(0, 1.9fr) minmax(0, 1fr);
 }
 
-/* ═══ Живые демо: слева код + результат, справа — что добавляем ═══ */
+/* ═══ Живі демо ═══ */
 .live-pair {
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -2518,7 +2516,7 @@ body.light .lv-step.on {
   border-color: #86a91a;
 }
 
-/* ═══ Иконка — это символ шрифта ═══ */
+/* ═══ Іконковий шрифт ═══ */
 .if-pair {
   grid-template-columns: 1fr 1fr;
   gap: 44px;
@@ -2677,57 +2675,6 @@ body.light .if-stage {
 
 .site-links {
   margin-top: 4px;
-}
-
-/* ── интерактивная песочница CSS ── */
-.pg-wrap {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  border-radius: 24px;
-  overflow: hidden;
-  background: var(--code);
-  border: 1px solid var(--line-2);
-}
-
-.pg-hl {
-  margin: 0;
-  padding: 24px;
-  font: 500 24px/1.6 var(--mono);
-  color: #e9ebf3;
-  pointer-events: none;
-  white-space: pre-wrap;
-  word-break: break-all;
-  height: 100%;
-  overflow: auto;
-}
-
-body.light .pg-hl {
-  color: var(--code-ink);
-}
-
-.pg-text {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 24px;
-  font: 500 24px/1.6 var(--mono);
-  color: transparent;
-  background: transparent;
-  caret-color: var(--accent-ink);
-  border: 0;
-  resize: none;
-  white-space: pre-wrap;
-  word-break: break-all;
-  outline: none;
-  overflow: auto;
-}
-
-.pg-presets {
-  display: flex;
-  gap: 8px;
 }
 
 @media print {

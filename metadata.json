@@ -1,6 +1,6 @@
 {
-  "name": "CSS Lab — HTML & CSS Урок 4",
-  "description": "Інтерактивна презентація та лабораторія: підключення CSS, колір, фон, шрифти, Google Fonts, Font Awesome, каскад і DevTools.",
+  "name": "CSS Lab — HTML & CSS · Урок 4",
+  "description": "CSS Lab — інтерактивний урок HTML & CSS №4: підключення CSS, колір, фон і шрифт.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,9 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+"use strict";
 
-import './index.css';
+/* ═══════════════════════════════════════════════════════════════
+   CSS Lab · HTML & CSS · Урок 4 — чистий Vanilla JavaScript
+   Слайди, живі демо, інтерактивні тести, симулятор DevTools, таймер
+   ═══════════════════════════════════════════════════════════════ */
 
 // ───────── Сторінка-приклад для всіх попередніх переглядів (українською)
 const PAGE = `<h1>Кав'ярня «Ранок»</h1>
@@ -49,7 +49,7 @@ a {
 }`;
 
 // ───────── Покрокові живі демо: кожне правило вмикається по черзі
-const LIVE: Record<string, { base: string; start: string; rules: [string, string, string, string?][] }> = {
+const LIVE = {
   color: {
     base: '',
     start: 'Сторінка без CSS: білий фон, чорний текст, стандартний шрифт браузера. Тисніть «Наступний крок».',
@@ -102,7 +102,7 @@ const WEB = {
   },
   icons: {
     base: FINAL_CSS,
-    page: (n: number) => PAGE
+    page: (n) => PAGE
       .replace('<h1>', '<h1>' + (n >= 2 ? '<i class="fa-solid fa-mug-hot"></i> ' : ''))
       .replace('<p>Свіжа', '<p>' + (n >= 3 ? '<i class="fa-regular fa-clock"></i> ' : '') + 'Свіжа')
       .replace('">Instagram', '">' + (n >= 3 ? '<i class="fa-brands fa-instagram"></i> ' : '') + 'Instagram'),
@@ -117,29 +117,7 @@ const WEB = {
 };
 
 // ───────── Слайди уроку (29 слайдів)
-interface SlideItem {
-  type: string;
-  title: string;
-  section: string;
-  minutes: number;
-  notes: string;
-  label?: string;
-  lead?: string;
-  lang?: 'html' | 'css';
-  file?: string;
-  code?: string;
-  question?: string;
-  choices?: string[];
-  correct?: number;
-  explain?: string;
-  demo?: 'color' | 'font' | 'inherit' | 'gfonts' | 'icons';
-  items?: [string, string, string][];
-  links?: [string, string][];
-  practice?: 'joint' | 'solo';
-  part?: 'concepts' | 'exceptions';
-}
-
-const slides: SlideItem[] = [
+const slides = [
   { type: 'cover', title: 'Підключення CSS', section: 'Початок', minutes: 1, notes: 'Сьогодні сторінка з минулого заняття отримує візуальний дизайн. План на 90 хвилин: 5 — розминка і «до/після», 45 — теорія з живими демо (включаючи Google Fonts та Font Awesome), 25 — робимо разом, 12 — самостійно, 3 — шпаргалка. Усе зі слайдів учні побачать на практиці.' },
   { type: 'quiz', label: '02 / РОЗМИНКА', section: 'Розминка', title: 'Згадаймо <em>img</em>', lead: 'Матеріал попереднього уроку. Спочатку відповідь уголос, потім кнопка.', minutes: 2, lang: 'html', file: 'index.html',
     code: '<h2>Наша кава</h2>\n<img src="img/coffee.jpg">\n<a href="menu.html">Меню</a>', question: 'Чого не вистачає картинці?', choices: ['alt — опису зображення', 'href — адреси посилання', 'закриваючого тегу </img>', 'Нічого, все написано правильно'], correct: 0,
@@ -201,7 +179,7 @@ const TABS = [
     files: [['index.html', 'html', '<head>\n  <link rel="stylesheet" href="style.css">\n</head>\n<body>\n  <h1>Кав\'ярня</h1>\n  <p>Свіжа кава</p>\n  <h1>Меню</h1>\n</body>'], ['style.css', 'css', 'h1 {\n  color: tomato;\n}\n\np {\n  color: gray;\n}']], html: '<h1>Кав\'ярня</h1>\n<p>Свіжа кава</p>\n<h1>Меню</h1>', css: 'h1 { color: tomato; }\np { color: gray; }' },
 ];
 
-const ANATOMY: [string, string, string, string][] = [
+const ANATOMY = [
   ['sel', 'Селектор', 'selector', 'КОГО стилізуємо. У цьому прикладі — всі заголовки першого рівня `h1`.'],
   ['brace', 'Фігурні дужки', 'declaration block', 'Блок оголошень: усе всередині `{ }` стосується вказаного селектора.'],
   ['prop', 'Властивість', 'property', 'ЩО саме змінюємо: колір, розмір, гарнітуру шрифту, фон…'],
@@ -211,7 +189,7 @@ const ANATOMY: [string, string, string, string][] = [
   ['decl', 'Оголошення', 'declaration', 'Пара «властивість + значення». А вся конструкція цілком зветься правилом (rule).'],
 ];
 
-const COLOR_PRESETS: [string, number, number, number][] = [
+const COLOR_PRESETS = [
   ['tomato', 255, 99, 71],
   ['navy', 0, 0, 128],
   ['gold', 255, 215, 0],
@@ -229,12 +207,12 @@ const DEV_RULES = [
   { sel: 'li', decls: [['font-style', 'italic']] },
   { sel: 'a', decls: [['color', '#b5651d'], ['text-decoration', 'none']] },
 ];
-const DEV_UA: Record<string, [string, string][]> = {
+const DEV_UA = {
   h1: [['font-size', '2em'], ['font-weight', 'bold']],
   h2: [['font-size', '1.5em'], ['font-weight', 'bold']],
   a: [['color', 'blue'], ['text-decoration', 'underline']],
 };
-const DEV_TREE: [string, number, string][] = [
+const DEV_TREE = [
   ['body', 0, '<body>'],
   ['h1', 1, '<h1>Кав\'ярня «Ранок»</h1>'],
   ['p', 1, '<p>Свіжа кава…</p>'],
@@ -247,12 +225,12 @@ const DEV_TREE: [string, number, string][] = [
 const INHERITED = ['color', 'font-family', 'font-size', 'font-style', 'font-weight', 'line-height', 'text-align'];
 
 const BUGS = [
-  { title: 'Немає крапки з комою', lang: 'css' as const, bad: 'h1 {\n  color: navy\n  font-size: 40px;\n}', good: 'h1 {\n  color: navy;\n  font-size: 40px;\n}', why: 'Без `;` браузер сприймає «navy font-size: 40px» як єдине значення властивості `color` — invalid value, обидві властивості повністю ігноруються.' },
-  { title: 'Такої властивості немає', lang: 'css' as const, bad: 'p {\n  font-color: gray;\n  text-color: gray;\n}', good: 'p {\n  color: gray;\n}', why: 'Колір тексту задається просто ключовим словом `color`. Невідому властивість (unknown property) браузер мовчки пропускає (у DevTools з\'явиться жовтий значок).' },
-  { title: 'Пробіл перед одиницею px', lang: 'css' as const, bad: 'h1 {\n  font-size: 40 px;\n}', good: 'h1 {\n  font-size: 40px;\n}', why: 'Число та одиниця вимірювання (unit) пишуться строго разом: `40px`. З пробілом це невалідний синтаксис, властивість не спрацює.' },
-  { title: 'Стилі взагалі не підключилися', lang: 'html' as const, bad: '<!-- файл називається style.css -->\n<link rel="stylesheet" href="styles.css">', good: '<link rel="stylesheet" href="style.css">', why: 'Шлях у `href` має збігатися з фактичною назвою файлу літера в літеру. Зайва літера s у кінці — браузер повертає 404.' },
-  { title: 'Посилання залишилося синім', lang: 'css' as const, bad: 'body {\n  color: white;\n  background-color: black;\n}\n/* текст білий, а посилання — синє */', good: 'body {\n  color: white;\n  background-color: black;\n}\n\na {\n  color: gold;\n}', why: 'У посилання є дефолтний синій колір із браузерних стилів (user agent stylesheet) — він сильніший за успадкований від `body`. Потрібно вказати правило окремо для селектора `a`.' },
-  { title: 'Крапка перед назвою тегу', lang: 'css' as const, bad: '.h1 {\n  color: tomato;\n}', good: 'h1 {\n  color: tomato;\n}', why: 'Крапка означає селектор класу: `.h1` шукає елементи з атрибутом `class="h1"`. Для звичайного тегу використовуємо селектор типу без крапки — просто `h1`.' },
+  { title: 'Немає крапки з комою', lang: 'css', bad: 'h1 {\n  color: navy\n  font-size: 40px;\n}', good: 'h1 {\n  color: navy;\n  font-size: 40px;\n}', why: 'Без `;` браузер сприймає «navy font-size: 40px» як єдине значення властивості `color` — invalid value, обидві властивості повністю ігноруються.' },
+  { title: 'Такої властивості немає', lang: 'css', bad: 'p {\n  font-color: gray;\n  text-color: gray;\n}', good: 'p {\n  color: gray;\n}', why: 'Колір тексту задається просто ключовим словом `color`. Невідому властивість (unknown property) браузер мовчки пропускає (у DevTools з\'явиться жовтий значок).' },
+  { title: 'Пробіл перед одиницею px', lang: 'css', bad: 'h1 {\n  font-size: 40 px;\n}', good: 'h1 {\n  font-size: 40px;\n}', why: 'Число та одиниця вимірювання (unit) пишуться строго разом: `40px`. З пробілом це невалідний синтаксис, властивість не спрацює.' },
+  { title: 'Стилі взагалі не підключилися', lang: 'html', bad: '<!-- файл називається style.css -->\n<link rel="stylesheet" href="styles.css">', good: '<link rel="stylesheet" href="style.css">', why: 'Шлях у `href` має збігатися з фактичною назвою файлу літера в літеру. Зайва літера s у кінці — браузер повертає 404.' },
+  { title: 'Посилання залишилося синім', lang: 'css', bad: 'body {\n  color: white;\n  background-color: black;\n}\n/* текст білий, а посилання — синє */', good: 'body {\n  color: white;\n  background-color: black;\n}\n\na {\n  color: gold;\n}', why: 'У посилання є дефолтний синій колір із браузерних стилів (user agent stylesheet) — він сильніший за успадкований від `body`. Потрібно вказати правило окремо для селектора `a`.' },
+  { title: 'Крапка перед назвою тегу', lang: 'css', bad: '.h1 {\n  color: tomato;\n}', good: 'h1 {\n  color: tomato;\n}', why: 'Крапка означає селектор класу: `.h1` шукає елементи з атрибутом `class="h1"`. Для звичайного тегу використовуємо селектор типу без крапки — просто `h1`.' },
 ];
 
 const PRACTICE = {
@@ -284,7 +262,7 @@ const PRACTICE = {
   },
 };
 
-const GLOSSARY: [string, string, string, string][] = [
+const GLOSSARY = [
   ['Таблиця стилів', 'stylesheet', '«стилі», «цееска»', '<link rel="stylesheet">'],
   ['Правило', 'rule / ruleset', '«правило»', 'h1 { color: red; }'],
   ['Селектор', 'selector', '«селектор»', 'h1, h2'],
@@ -303,7 +281,7 @@ const GLOSSARY: [string, string, string, string][] = [
   ['Інструменти розробника', 'DevTools', '«девтулзи», «інспектор»', 'F12'],
 ];
 
-const SUMMARY: [string, string[]][] = [
+const SUMMARY = [
   ['Підключення <em>external CSS</em>', ['У head: <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>.', 'href — шлях до файлу, як src у img: <code>css/style.css</code>.', 'Один файл стилів на весь сайт. Інлайн <code>style="…"</code> та <code>&lt;style&gt;</code> — не використовуємо.']],
   ['Правило <em>rule</em>', ['<code>селектор { властивість: значення; }</code>', 'Властивість і значення — через <b>двокрапку</b>, в кінці обов\'язково <b>крапка з комою</b>.', 'Коментар для пояснень: <code>/* … */</code>.']],
   ['Селектори <em>selectors</em>', ['За тегом: <code>p { }</code> — усі абзаци сторінки.', 'Група: <code>h1, h2 { }</code> — одне правило для декількох тегів.', 'Назва тегу пишеться без кутових дужок і без крапки: <code>p</code>, не <code>&lt;p&gt;</code> і не <code>.p</code>.']],
@@ -319,13 +297,13 @@ const EXCEPTIONS = [
   'CSS не показує повідомлень про помилки: некоректна властивість чи значення просто ігнорується браузером. Шукайте причину в DevTools.',
   'Число й одиниця вимірювання пишуться разом: <code>40px</code>, не <code>40 px</code>. У <code>line-height</code> можна вказувати чистий множник: <code>1.6</code>.',
   'Назва шрифту, що містить пробіли, береться в лапки: <code>"Times New Roman"</code>.',
-  'Крапка перед словом — це селектор класу: <code>.h1</code> ≠ <code>h1</code>. Для стандартного тегу крапка не потрібна.',
+  'Крапка перед назвою — це селектор класу: <code>.h1</code> ≠ <code>h1</code>. Для стандартного тегу крапка не потрібна.',
   'Якщо файл у підпапці: <code>href="css/style.css"</code>. Назва повинна збігатися літера в літеру.',
   'Атрибут <code>style="…"</code> в HTML сильніший за зовнішній файл стилів — саме тому ми його не використовуємо.',
   'Не бачите змін на сторінці? Збережіть файл (Ctrl+S) і оновіть сторінку в браузері (F5).',
 ];
 
-const GLYPHS: [string, string, string, string][] = [
+const GLYPHS = [
   ['A', 'Inter', 'U+0041', 'буква'],
   ['Ж', 'Inter', 'U+0416', 'буква'],
   ['7', 'Inter', 'U+0037', 'цифра'],
@@ -337,30 +315,12 @@ const GLYPHS: [string, string, string, string][] = [
 const IF_COLORS = ['#b5651d', 'tomato', 'teal', '#7b45d6', '#2f62c9'];
 
 // ───────── Допоміжні функції та підсвітка синтаксису
-const stage = document.getElementById('stage') as HTMLElement;
-interface StoreState {
-  step?: number;
-  answer?: number;
-  tab?: number;
-  r?: number;
-  g?: number;
-  b?: number;
-  size?: number;
-  color?: number;
-  el?: string;
-  off?: Record<string, boolean>;
-  msg?: string;
-  bug?: number;
-  open?: Record<number, boolean>;
-  remaining?: number;
-  running?: boolean;
-}
-
-const store: Record<number, StoreState> = Object.create(null);
+const stage = document.getElementById('stage');
+const store = Object.create(null);
 let current = 0;
-let toastTimeout: NodeJS.Timeout | number;
+let toastTimeout;
 
-const esc = (s: unknown): string =>
+const esc = (s) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({
     '&': '&amp;',
     '<': '&lt;',
@@ -369,14 +329,13 @@ const esc = (s: unknown): string =>
     "'": '&#39;',
   }[c] || c));
 
-const state = (): StoreState => store[current] || (store[current] = { step: 0 });
-const removeTags = (s: unknown): string => String(s ?? '').replace(/<[^>]*>/g, '');
-const tok = (t: string, cls: string): string =>
-  t ? '<span class="token ' + cls + '">' + esc(t) + '</span>' : '';
+const state = () => store[current] || (store[current] = { step: 0 });
+const removeTags = (s) => String(s ?? '').replace(/<[^>]*>/g, '');
+const tok = (t, cls) => (t ? '<span class="token ' + cls + '">' + esc(t) + '</span>' : '');
 
 const NAMED = ['tomato', 'navy', 'gold', 'teal', 'black', 'white', 'gray', 'red', 'green', 'blue', 'orange'];
 
-function hlVal(v: string): string {
+function hlVal(v) {
   return v
     .split(/(rgb\([^)]*\)|"[^"]*"|#[0-9a-fA-F]{3,8}\b|\d*\.?\d+(?:px|em|%)?|[A-Za-z-]+)/)
     .map((t) => {
@@ -391,7 +350,7 @@ function hlVal(v: string): string {
     .join('');
 }
 
-function hlCSS(line: string): string {
+function hlCSS(line) {
   const ci = line.indexOf('/*');
   let rest = ci >= 0 ? line.slice(0, ci) : line;
   const comment = ci >= 0 ? line.slice(ci) : '';
@@ -403,7 +362,7 @@ function hlCSS(line: string): string {
   }
   const re = /([a-z-]+)(\s*:\s*)([^;}]*)(;?)|(\})/g;
   let last = 0;
-  let m: RegExpExecArray | null;
+  let m;
   while ((m = re.exec(rest)) !== null) {
     html += esc(rest.slice(last, m.index));
     html += m[5]
@@ -415,7 +374,7 @@ function hlCSS(line: string): string {
   return html + tok(comment, 'comment');
 }
 
-function hlHTML(line: string): string {
+function hlHTML(line) {
   return String(line)
     .split(/(<!--.*?-->|<!--.*$|<\/?[A-Za-z!][A-Za-z0-9]*|\/?>|[a-z-]+(?==)|"[^"]*"|=)/)
     .map((t) => {
@@ -431,14 +390,13 @@ function hlHTML(line: string): string {
     .join('');
 }
 
-const hl = (line: string, lang: 'html' | 'css'): string =>
-  lang === 'html' ? hlHTML(line) : hlCSS(line);
+const hl = (line, lang) => (lang === 'html' ? hlHTML(line) : hlCSS(line));
 
 const TAGS = /^\.?(html|head|body|title|link|style|meta|h[1-6]|p|a|img|ul|ol|li)(,\s*\.?(h[1-6]|p|a|li))*$/;
 
-function inlineCode(t: string): string {
+function inlineCode(t) {
   t = String(t);
-  let html: string;
+  let html;
   if (/^</.test(t)) html = hlHTML(t);
   else if (/[{:]|\/\*/.test(t)) html = hlCSS(t);
   else if (TAGS.test(t)) html = tok(t, 'keyword');
@@ -450,7 +408,7 @@ function inlineCode(t: string): string {
   return '<code class="ic">' + html + '</code>';
 }
 
-function rich(text: string): string {
+function rich(text) {
   const parts = String(text).split('`');
   let out = '';
   parts.forEach((part, i) => {
@@ -466,15 +424,14 @@ function rich(text: string): string {
   return out;
 }
 
-const term = (t?: string): string =>
-  t ? '<span class="term"><b>термін</b>' + esc(t) + '</span>' : '';
+const term = (t) => (t ? '<span class="term"><b>термін</b>' + esc(t) + '</span>' : '');
 
-function codeWindow(code: string, opts: { caption?: string; lang?: 'html' | 'css'; active?: number[]; dimFrom?: number } = {}): string {
+function codeWindow(code, opts = {}) {
   const lang = opts.lang || 'css';
   const active = opts.active || [];
   let inComment = false;
 
-  const paint = (line: string) => {
+  const paint = (line) => {
     if (lang !== 'css') {
       if (inComment) {
         const e = line.indexOf('-->');
@@ -525,7 +482,7 @@ function codeWindow(code: string, opts: { caption?: string; lang?: 'html' | 'css
   );
 }
 
-function head(s: SlideItem): string {
+function head(s) {
   return (
     '<div class="intro"><span class="tag">' +
     (s.label || '04 / CSS') +
@@ -537,7 +494,7 @@ function head(s: SlideItem): string {
   );
 }
 
-function pageDoc(html: string, css: string, zoom = 0.8): string {
+function pageDoc(html, css, zoom = 0.8) {
   return (
     '<!doctype html><html><head><meta charset="utf-8"><style>html{zoom:' +
     zoom +
@@ -549,7 +506,7 @@ function pageDoc(html: string, css: string, zoom = 0.8): string {
   );
 }
 
-function browser(html: string, css: string, caption = 'index.html', id = '', zoom = 0.8): string {
+function browser(html, css, caption = 'index.html', id = '', zoom = 0.8) {
   return (
     '<div class="browser"><div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="addr">' +
     esc(caption) +
@@ -561,7 +518,7 @@ function browser(html: string, css: string, caption = 'index.html', id = '', zoo
   );
 }
 
-function quiz(s: SlideItem, st: StoreState): string {
+function quiz(s, st) {
   const answered = Number.isInteger(st.answer);
   return (
     '<div class="quiz-grid"><div class="quiz-left"><div class="quiz-question">' +
@@ -600,11 +557,11 @@ function quiz(s: SlideItem, st: StoreState): string {
   );
 }
 
-function glyph(g: string): string {
+function glyph(g) {
   return g.startsWith('fa-') ? '<i class="' + g + '"></i>' : esc(g);
 }
 
-function iconfontView(st: StoreState): string {
+function iconfontView(st) {
   st.size ??= 120;
   st.color ??= 0;
   const color = IF_COLORS[st.color];
@@ -672,7 +629,7 @@ function iconfontView(st: StoreState): string {
   );
 }
 
-function theoryView(s: SlideItem): string {
+function theoryView(s) {
   return (
     '<div class="pair"><div class="pane left"><div class="pane-heading">КОД</div>' +
     codeWindow(s.code || '', { lang: s.lang, caption: s.file }) +
@@ -711,7 +668,7 @@ function theoryView(s: SlideItem): string {
   );
 }
 
-function beforeAfter(): string {
+function beforeAfter() {
   return (
     '<div class="pair ba-grid"><div class="pane"><div class="pane-heading"><span>Тільки HTML</span><span>так було на уроці 3</span></div>' +
     browser(PAGE, '') +
@@ -721,10 +678,10 @@ function beforeAfter(): string {
   );
 }
 
-function tabsView(st: StoreState): string {
+function tabsView(st) {
   const i = st.tab || 0;
   const t = TABS[i];
-  const verdictMap: Record<string, [string, string]> = {
+  const verdictMap = {
     bad: ['✗', 'Не використовуємо'],
     mid: ['~', 'Іноді'],
     good: ['✓', 'Так робимо завжди'],
@@ -752,7 +709,7 @@ function tabsView(st: StoreState): string {
     (t.files.length > 1 ? ' ФАЙЛИ' : ' ФАЙЛ') +
     '</span></div>' +
     t.files
-      .map((f) => codeWindow(f[2], { caption: f[0], lang: f[1] as 'html' | 'css' }))
+      .map((f) => codeWindow(f[2], { caption: f[0], lang: f[1] }))
       .join('') +
     '</div><div class="pane right"><div class="pane-heading"><span>РЕЗУЛЬТАТ</span></div>' +
     browser(t.html, t.css) +
@@ -768,12 +725,12 @@ function tabsView(st: StoreState): string {
   );
 }
 
-function anatomyView(st: StoreState): string {
+function anatomyView(st) {
   const idx = Math.max(0, Math.min(st.step || 0, ANATOMY.length - 1));
   const part = ANATOMY[idx][0];
-  const P = (name: string, text: string, cls: string) =>
+  const P = (name, text, cls) =>
     '<span class="ana token ' + cls + ' ' + (name === part ? 'on' : '') + '">' + text + '</span>';
-  const decl = (prop: string, val: string) =>
+  const decl = (prop, val) =>
     '<span class="ana-decl ' +
     (part === 'decl' ? 'on' : '') +
     '">' +
@@ -829,7 +786,7 @@ function anatomyView(st: StoreState): string {
   );
 }
 
-function liveView(kind: 'color' | 'font' | 'inherit', st: StoreState): string {
+function liveView(kind, st) {
   const d = LIVE[kind];
   const total = d.rules.length;
   const idx = Math.max(0, Math.min(st.step || 0, total));
@@ -888,7 +845,7 @@ function liveView(kind: 'color' | 'font' | 'inherit', st: StoreState): string {
   );
 }
 
-function webView(kind: 'gfonts' | 'icons', st: StoreState): string {
+function webView(kind, st) {
   const d = WEB[kind];
   const total = d.steps.length - 1;
   const idx = Math.max(0, Math.min(st.step || 0, total));
@@ -920,7 +877,7 @@ function webView(kind: 'gfonts' | 'icons', st: StoreState): string {
   );
 }
 
-const liveSteps = (s: SlideItem): number => {
+function liveSteps(s) {
   if (s.type === 'live' && (s.demo === 'color' || s.demo === 'font' || s.demo === 'inherit')) {
     return LIVE[s.demo].rules.length;
   }
@@ -931,13 +888,13 @@ const liveSteps = (s: SlideItem): number => {
     return ANATOMY.length - 1;
   }
   return 0;
-};
+}
 
-const hex2 = (n: number | string): string => Number(n).toString(16).padStart(2, '0');
+const hex2 = (n) => Number(n).toString(16).padStart(2, '0');
 
-function colorView(st: StoreState): string {
+function colorView(st) {
   if (st.r === undefined) Object.assign(st, { r: 255, g: 99, b: 71 });
-  const slider = (k: 'r' | 'g' | 'b', label: string) =>
+  const slider = (k, label) =>
     '<label class="mx-row mx-' +
     k +
     '"><span>' +
@@ -974,7 +931,7 @@ function colorView(st: StoreState): string {
   );
 }
 
-function paintMixer(): void {
+function paintMixer() {
   const st = state();
   const sw = document.getElementById('mxSwatch');
   if (!sw) return;
@@ -983,7 +940,7 @@ function paintMixer(): void {
   const name = COLOR_PRESETS.find((p) => p[1] === +r && p[2] === +g && p[3] === +b && /^[a-z]/.test(p[0]));
   sw.style.background = hex;
   sw.style.color = (r * 299 + g * 587 + b * 114) / 1000 > 150 ? '#22233c' : '#ffffff';
-  (['r', 'g', 'b'] as const).forEach((k) => {
+  ['r', 'g', 'b'].forEach((k) => {
     const el = document.getElementById('mx-' + k);
     if (el) el.textContent = String(st[k]);
   });
@@ -1001,26 +958,26 @@ function paintMixer(): void {
 }
 
 // DevTools
-function devCSS(st: StoreState, sel: string): string {
+function devCSS(st, sel) {
   const off = st.off || {};
   let css = DEV_RULES.map((r, ri) => r.sel + '{' + r.decls.filter((d) => !off[ri + ':' + d[0]]).map((d) => d[0] + ':' + d[1]).join(';') + '}').join('');
   if (sel && sel !== 'body') css += sel + '{outline:2px dashed #7956f7;outline-offset:3px;background-color:#7956f71a}';
   return css;
 }
 
-function devtoolsView(st: StoreState): string {
+function devtoolsView(st) {
   st.off = st.off || {};
   const sel = st.el || 'a';
   const own = DEV_RULES.map((r, ri) => ({ ...r, ri })).filter((r) => r.sel === sel);
-  const ownProps = new Set(own.flatMap((r) => r.decls.filter((d) => !st.off![r.ri + ':' + d[0]]).map((d) => d[0])));
+  const ownProps = new Set(own.flatMap((r) => r.decls.filter((d) => !st.off[r.ri + ':' + d[0]]).map((d) => d[0])));
   const ua = DEV_UA[sel] || [];
   const uaProps = new Set(ua.map((d) => d[0]));
 
-  const decl = (prop: string, val: string, ri?: number, struck?: boolean) =>
+  const decl = (prop, val, ri, struck) =>
     '<label class="dt-decl ' +
     (struck ? 'struck' : '') +
     '">' +
-    (ri === undefined ? '<span class="dt-nobox"></span>' : '<input type="checkbox" data-off="' + ri + ':' + prop + '" ' + (st.off![ri + ':' + prop] ? '' : 'checked') + '>') +
+    (ri === undefined ? '<span class="dt-nobox"></span>' : '<input type="checkbox" data-off="' + ri + ':' + prop + '" ' + (st.off[ri + ':' + prop] ? '' : 'checked') + '>') +
     '<span><span class="dt-p">' +
     esc(prop) +
     '</span>: <span class="dt-v">' +
@@ -1030,7 +987,7 @@ function devtoolsView(st: StoreState): string {
 
   let styles = '';
   own.forEach((r) => {
-    styles += '<div class="dt-rule"><div class="dt-sel">' + r.sel + ' {<span class="dt-src">style.css</span></div>' + r.decls.map((d) => decl(d[0], d[1], r.ri, st.off![r.ri + ':' + d[0]])).join('') + '<div class="dt-end">}</div></div>';
+    styles += '<div class="dt-rule"><div class="dt-sel">' + r.sel + ' {<span class="dt-src">style.css</span></div>' + r.decls.map((d) => decl(d[0], d[1], r.ri, st.off[r.ri + ':' + d[0]])).join('') + '<div class="dt-end">}</div></div>';
   });
 
   if (ua.length) {
@@ -1040,7 +997,7 @@ function devtoolsView(st: StoreState): string {
   if (sel !== 'body') {
     const body = DEV_RULES[0];
     const inh = body.decls.filter((d) => INHERITED.includes(d[0]));
-    styles += '<div class="dt-inh">Успадковано від <b>body</b></div><div class="dt-rule"><div class="dt-sel">body {<span class="dt-src">style.css</span></div>' + inh.map((d) => decl(d[0], d[1], 0, st.off!['0:' + d[0]] || ownProps.has(d[0]) || uaProps.has(d[0]))).join('') + '<div class="dt-end">}</div></div>';
+    styles += '<div class="dt-inh">Успадковано від <b>body</b></div><div class="dt-rule"><div class="dt-sel">body {<span class="dt-src">style.css</span></div>' + inh.map((d) => decl(d[0], d[1], 0, st.off['0:' + d[0]] || ownProps.has(d[0]) || uaProps.has(d[0]))).join('') + '<div class="dt-end">}</div></div>';
   }
 
   return (
@@ -1060,7 +1017,7 @@ function devtoolsView(st: StoreState): string {
   );
 }
 
-function bugsView(st: StoreState): string {
+function bugsView(st) {
   st.open = st.open || {};
   const i = st.bug || 0;
   const b = BUGS[i];
@@ -1069,7 +1026,7 @@ function bugsView(st: StoreState): string {
 
   return (
     '<div class="bugs2"><div class="bug-list">' +
-    BUGS.map((x, k) => '<button class="bug-tab ' + (k === i ? 'active' : '') + ' ' + (st.open![k] ? 'done' : '') + '" data-action="bug-pick" data-value="' + k + '"><span>' + String(k + 1).padStart(2, '0') + '</span>' + esc(x.title) + '</button>').join('') +
+    BUGS.map((x, k) => '<button class="bug-tab ' + (k === i ? 'active' : '') + ' ' + (st.open[k] ? 'done' : '') + '" data-action="bug-pick" data-value="' + k + '"><span>' + String(k + 1).padStart(2, '0') + '</span>' + esc(x.title) + '</button>').join('') +
     '</div><div class="bug-main"><div class="bug-col"><div class="caps bad-cap">✗ З ПОМИЛКОЮ</div>' +
     codeWindow(b.bad, { lang: b.lang, caption: cap }) +
     '</div>' +
@@ -1080,7 +1037,7 @@ function bugsView(st: StoreState): string {
   );
 }
 
-function practice(s: SlideItem, st: StoreState): string {
+function practice(s, st) {
   const p = PRACTICE[s.practice || 'joint'];
   const joint = s.practice === 'joint';
   const remaining = st.remaining ?? s.minutes * 60;
@@ -1121,7 +1078,7 @@ function practice(s: SlideItem, st: StoreState): string {
   );
 }
 
-function summaryView(s: SlideItem): string {
+function summaryView(s) {
   const buttons = '<div class="buttons sum-actions"><a class="primary" href="/materials/SUMMARY.md" download="SUMMARY.md">↓ Шпаргалка .md</a><button class="secondary" data-action="print">Друк / PDF</button></div>';
   if (s.part === 'exceptions') {
     return '<div class="exc-grid">' + EXCEPTIONS.map((x, i) => '<div class="exc-card"><span>' + String(i + 1).padStart(2, '0') + '</span><p>' + x + '</p></div>').join('') + '</div>' + buttons;
@@ -1129,11 +1086,11 @@ function summaryView(s: SlideItem): string {
   return '<div class="sum-grid">' + SUMMARY.map(([h, list], i) => '<div class="sum-card"><div class="sum-n">' + String(i + 1).padStart(2, '0') + '</div><h3>' + h + '</h3><ul>' + list.map((x) => '<li>' + x + '</li>').join('') + '</ul></div>').join('') + '</div>' + buttons;
 }
 
-function glossaryView(): string {
+function glossaryView() {
   return '<div class="gl-grid">' + GLOSSARY.map((g) => '<div class="gl-row"><div class="gl-ru"><b>' + esc(g[0]) + '</b><em>' + esc(g[1]) + '</em></div><span class="gl-say">' + esc(g[2]) + '</span>' + (g[3] === 'F12' ? '<code class="ic"><span class="token keyword">F12</span></code>' : inlineCode(g[3])) + '</div>').join('') + '</div>';
 }
 
-function cover(): string {
+function cover() {
   return (
     '<div class="cover-grid"><div class="cover-copy"><div class="overline"><i></i> HTML &amp; CSS <b></b> УРОК 4</div><h1>Один файл.<br><span>Весь стиль сайту.</span></h1><p>Підключаємо CSS і надаємо сторінці колір, фон та шрифти — без жодної правки розмітки HTML.</p><div class="pills"><span>&lt;link&gt;</span><span>селектор { }</span><span>color</span><span>background-color</span><span>font-family</span></div><button class="primary" data-action="next-slide">Почати урок →</button></div><div class="cover-art"><div class="art-glow"></div><div class="art-glow two"></div><div class="art-stage"><div class="art-card cover-ba"><div class="art-heading"><span>CSS LAB / 04</span><span>до → після</span></div><div class="cv-split"><div class="cv-page plain"><b>Кав\'ярня «Ранок»</b><span>Свіжа кава та випічка</span><span>• Капучино — 180 грн</span><u>Instagram</u></div><div class="cv-page styled"><b>Кав\'ярня «Ранок»</b><span>Свіжа кава та випічка</span><span>• Капучино — 180 грн</span><em>Instagram</em></div></div><div class="art-input">' +
     hlCSS('h1 { color: #6f4e37; font-family: Georgia; }') +
@@ -1141,17 +1098,17 @@ function cover(): string {
   );
 }
 
-function finish(): string {
+function finish() {
   return (
     '<div class="closing"><div class="closing-mark">{ }</div><span class="tag green">УРОК 4 / ГОТОВО</span><h1>HTML — що.<br><em>CSS — як.</em></h1><p>Файл стилів підключаємо через link. Правило: селектор, властивість, значення. Колір, фон і шрифт від body успадковують усі нащадки — крім тих елементів, у яких задано власний стиль.</p><div class="end-tags"><span>&lt;link rel="stylesheet"&gt;</span><span>color · background-color</span><span>font-family</span><span>нижнє перемагає</span></div><div class="buttons" style="justify-content:center"><a class="primary" href="/materials/homework.zip" download="homework.zip">↓ Домашнє завдання</a><a class="secondary" href="/materials/view.html?p=homework" target="_blank" rel="noopener noreferrer">ТЗ домашки</a><a class="secondary" href="/materials/SUMMARY.md" download="SUMMARY.md">↓ Шпаргалка</a></div><p class="lesson-note">Далі: блокова модель — margin, padding, border.</p></div>'
   );
 }
 
-function formatTime(t: number): string {
+function formatTime(t) {
   return String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
 }
 
-function toggleTimer(): void {
+function toggleTimer() {
   const st = state();
   st.remaining ??= slides[current].minutes * 60;
   st.running = !st.running;
@@ -1177,7 +1134,7 @@ setInterval(() => {
   });
 }, 1000);
 
-function render(isNavigation: boolean): void {
+function render(isNavigation) {
   const s = slides[current];
   const st = state();
   let content = '';
@@ -1190,8 +1147,8 @@ function render(isNavigation: boolean): void {
     case 'beforeafter': content = head(s) + beforeAfter(); break;
     case 'tabs': content = head(s) + tabsView(st); break;
     case 'anatomy': content = head(s) + anatomyView(st); break;
-    case 'live': content = head(s) + liveView(s.demo as 'color' | 'font' | 'inherit', st); break;
-    case 'web': content = head(s) + webView(s.demo as 'gfonts' | 'icons', st); break;
+    case 'live': content = head(s) + liveView(s.demo, st); break;
+    case 'web': content = head(s) + webView(s.demo, st); break;
     case 'color': content = head(s) + colorView(st); break;
     case 'devtools': content = head(s) + devtoolsView(st); break;
     case 'bugs': content = head(s) + bugsView(st); break;
@@ -1237,9 +1194,9 @@ function render(isNavigation: boolean): void {
       .join('');
   }
 
-  const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement | null;
+  const prevBtn = document.getElementById('prevBtn');
   if (prevBtn) prevBtn.disabled = current === 0;
-  const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement | null;
+  const nextBtn = document.getElementById('nextBtn');
   if (nextBtn) nextBtn.disabled = current === slides.length - 1;
 
   document.querySelectorAll('[data-slide]').forEach((b, i) => {
@@ -1260,22 +1217,22 @@ function render(isNavigation: boolean): void {
   }
 }
 
-function fitCode(): void {
-  const fits = (pre: HTMLElement) => {
+function fitCode() {
+  const fits = (pre) => {
     if (pre.scrollHeight > pre.clientHeight + 1) return false;
     if (pre.closest('.web-html')) return true;
     const lines = pre.querySelectorAll('.code-line');
     if (!lines.length) return pre.scrollWidth <= pre.clientWidth + 1;
     let widest = 0;
     lines.forEach((l) => {
-      const first = l.firstElementChild as HTMLElement;
-      const last = l.lastElementChild as HTMLElement;
+      const first = l.firstElementChild;
+      const last = l.lastElementChild;
       if (first && last) widest = Math.max(widest, first.offsetWidth + last.offsetWidth);
     });
     return widest <= pre.clientWidth - 48;
   };
 
-  stage.querySelectorAll<HTMLElement>('.code-pre, .ana-code, .add-code').forEach((pre) => {
+  stage.querySelectorAll('.code-pre, .ana-code, .add-code').forEach((pre) => {
     const max = pre.classList.contains('ana-code')
       ? 104
       : pre.classList.contains('add-code')
@@ -1300,14 +1257,14 @@ function fitCode(): void {
 
     if (!fits(pre)) {
       pre.style.overflow = 'auto';
-      const act = pre.querySelector<HTMLElement>('.active-line');
+      const act = pre.querySelector('.active-line');
       if (act) pre.scrollTop = Math.max(0, act.offsetTop - pre.clientHeight / 3);
     }
   });
 }
 
-function fitPreviews(): void {
-  stage.querySelectorAll<HTMLIFrameElement>('.pv').forEach((f) => {
+function fitPreviews() {
+  stage.querySelectorAll('.pv').forEach((f) => {
     const apply = () => {
       try {
         const d = f.contentDocument;
@@ -1322,7 +1279,7 @@ function fitPreviews(): void {
   });
 }
 
-let fitTimer: NodeJS.Timeout | number;
+let fitTimer;
 window.addEventListener('resize', () => {
   clearTimeout(fitTimer);
   fitTimer = setTimeout(() => {
@@ -1335,12 +1292,12 @@ if (document.fonts) {
   document.fonts.ready.then(fitCode);
 }
 
-function fromHash(): number {
+function fromHash() {
   const h = Number(location.hash.replace('#', ''));
   return Number.isInteger(h) && h >= 1 && h <= slides.length ? h - 1 : 0;
 }
 
-function go(i: number, push = true): void {
+function go(i, push = true) {
   current = Math.max(0, Math.min(slides.length - 1, i));
   if (push && location.hash !== '#' + (current + 1)) {
     history.replaceState(null, '', '#' + (current + 1));
@@ -1348,23 +1305,23 @@ function go(i: number, push = true): void {
   render(true);
 }
 
-function closeOverlays(): void {
+function closeOverlays() {
   const outline = document.getElementById('outlineOverlay');
   if (outline) outline.hidden = true;
   const notes = document.getElementById('notesOverlay');
   if (notes) notes.hidden = true;
 }
 
-function toggleOverlay(id: string): void {
+function toggleOverlay(id) {
   const el = document.getElementById(id);
   if (!el) return;
   const open = el.hidden;
   closeOverlays();
   el.hidden = !open;
-  if (open) el.querySelector<HTMLButtonElement>('button')?.focus();
+  if (open) el.querySelector('button')?.focus();
 }
 
-function notify(msg: string): void {
+function notify(msg) {
   const el = document.getElementById('toast');
   if (!el) return;
   el.textContent = msg;
@@ -1373,7 +1330,7 @@ function notify(msg: string): void {
   toastTimeout = setTimeout(() => el.classList.remove('visible'), 2100);
 }
 
-function stepBy(delta: number): void {
+function stepBy(delta) {
   const st = state();
   const max = liveSteps(slides[current]);
   st.step = Math.max(0, Math.min(max, (st.step || 0) + delta));
@@ -1382,7 +1339,7 @@ function stepBy(delta: number): void {
 
 // Делегування подій stage
 stage.addEventListener('click', (e) => {
-  const node = (e.target as HTMLElement).closest<HTMLElement>('[data-action]');
+  const node = e.target.closest('[data-action]');
   if (!node) return;
   node.blur();
   const action = node.dataset.action;
@@ -1402,8 +1359,8 @@ stage.addEventListener('click', (e) => {
   if (action === 'preset-color' && v !== undefined) {
     const [r, g, b] = v.split(',').map(Number);
     Object.assign(st, { r, g, b });
-    (['r', 'g', 'b'] as const).forEach((k) => {
-      const input = stage.querySelector<HTMLInputElement>('[data-ch="' + k + '"]');
+    ['r', 'g', 'b'].forEach((k) => {
+      const input = stage.querySelector('[data-ch="' + k + '"]');
       if (input) input.value = String(st[k]);
     });
     paintMixer();
@@ -1438,9 +1395,9 @@ stage.addEventListener('click', (e) => {
 
 stage.addEventListener('input', (e) => {
   const st = state();
-  const t = e.target as HTMLInputElement;
+  const t = e.target;
   if (t.dataset.ch) {
-    st[t.dataset.ch as 'r' | 'g' | 'b'] = Number(t.value);
+    st[t.dataset.ch] = Number(t.value);
     paintMixer();
     return;
   }
@@ -1457,7 +1414,7 @@ stage.addEventListener('input', (e) => {
 });
 
 stage.addEventListener('change', (e) => {
-  const t = e.target as HTMLInputElement;
+  const t = e.target;
   if (t.dataset.off) {
     const st = state();
     st.off = st.off || {};
@@ -1481,13 +1438,13 @@ document.getElementById('nextBtn')?.addEventListener('click', () => go(current +
 document.getElementById('outlineBtn')?.addEventListener('click', () => toggleOverlay('outlineOverlay'));
 document.getElementById('notesBtn')?.addEventListener('click', () => toggleOverlay('notesOverlay'));
 
-function setThemeLabel(): void {
+function setThemeLabel() {
   const light = document.body.classList.contains('light');
   const toggle = document.getElementById('themeToggle');
   if (toggle) toggle.innerHTML = light ? '<span>☾</span>Темна' : '<span>☀</span>Світла';
 }
 
-function toggleTheme(): void {
+function toggleTheme() {
   document.body.classList.toggle('light');
   try {
     localStorage.setItem('css-lab-theme-v6', document.body.classList.contains('light') ? 'light' : 'dark');
@@ -1499,7 +1456,7 @@ function toggleTheme(): void {
 
 document.getElementById('themeBtn')?.addEventListener('click', toggleTheme);
 document.getElementById('themeToggle')?.addEventListener('click', (e) => {
-  (e.currentTarget as HTMLElement).blur();
+  e.currentTarget.blur();
   toggleTheme();
 });
 
@@ -1530,7 +1487,7 @@ if (outlineList) {
     .join('');
 
   outlineList.addEventListener('click', (e) => {
-    const n = (e.target as HTMLElement).closest<HTMLElement>('[data-slide]');
+    const n = e.target.closest('[data-slide]');
     if (n && n.dataset.slide !== undefined) {
       closeOverlays();
       go(Number(n.dataset.slide));
@@ -1553,12 +1510,12 @@ window.addEventListener('keydown', (e) => {
   const notes = document.getElementById('notesOverlay');
   if ((outline && !outline.hidden) || (notes && !notes.hidden)) return;
 
-  const target = e.target as HTMLElement | null;
+  const target = e.target;
   const typing =
     target &&
     (target.tagName === 'TEXTAREA' ||
       target.isContentEditable ||
-      (target.tagName === 'INPUT' && /^(text|search|email|number)$/.test((target as HTMLInputElement).type)));
+      (target.tagName === 'INPUT' && /^(text|search|email|number)$/.test(target.type)));
   if (typing) return;
 
   const s = slides[current];
@@ -1614,9 +1571,9 @@ setThemeLabel();
 
 // Масштабування полотна 1920×1080 під будь-який розмір вікна браузера
 const deck = document.getElementById('deck');
-function scaleDeck(): void {
+function scaleDeck() {
   if (deck) {
-    deck.style.setProperty('--s', String(Math.min(window.innerWidth / 1920, window.innerHeight / 1080)));
+    deck.style.setProperty('--s', String(Math.min(innerWidth / 1920, innerHeight / 1080)));
   }
 }
 scaleDeck();
@@ -1624,7 +1581,7 @@ window.addEventListener('resize', scaleDeck);
 
 // HUD ховається за відсутності активності миші
 const hud = document.getElementById('hud');
-let hudTimer: NodeJS.Timeout | number;
+let hudTimer;
 window.addEventListener('mousemove', () => {
   if (!hud) return;
   hud.classList.add('visible');
